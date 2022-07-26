@@ -3,15 +3,11 @@ html,body {
     padding: 0;
     background-image:  url('/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/Food.png');
     background-repeat: repeat;
+    background-color: black;
 }
 
-/* #bnwFloor {
-    background-size: auto;
-} */
 
 canvas {
-    /* background-image: url('../img/stone.png'); */
-    /* background-repeat: repeat; */
     background-color: white;
     background-repeat: repeat;
     width: 100%;
@@ -55,8 +51,6 @@ h1, h2 {
     grid-area: top-right;
     justify-content:left;
     padding-left: 5px;
-    /* background-color: #222; */
-    /* background-image: url('../img/funky-lines.png'); */
 }
 
 main {
