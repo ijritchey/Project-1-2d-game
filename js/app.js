@@ -1,20 +1,35 @@
 // GLOBAL DOM / VARIABLES
-console.log("this works, we're starting a game");
+console.log(ctx);
 const game = document.querySelector('#game');
 const ctx = game.getContext('2d'); // creates a 2d canvas 
+ctx.width = 960;
+ctx.height = 500;
+
+const keys = [];
+
 
 const foodOrder = document.querySelector('#foodOrder');
 const status = document.querySelector('#status');
 const score = document.querySelector('#score');
 
 const customers = ['David Stomach', 'Sarah Culture', 'Greg Tabasco', 'Lauren Knife', 'Jeff Boyardee']
-let player;
+
 let karen;
 let ingredient1;
 let ingredient2;
 let ingredient3;
 let drink; 
 
+const player = {
+    x: 0,
+    y: 0,
+    width: ,
+    height: ,
+    frameX: 0,
+    frameY: 0, 
+    speed: 9,
+    moving: false
+};
 
 
 // ====================== PAINT INTIAL SCREEN ======================= //
@@ -28,9 +43,10 @@ window.addEventListener('DOMContentLoaded', function() {
     player = new Crawler(10, 20, 'grey', 20, 20);
     karen = new Crawler(100, 200, '#bada55', 40, 80);
     
-    const runGame = setInterval(gameLoop, 60);
+    // const runGame = setInterval(gameLoop, 60);
 
 });
+
 
    
 
