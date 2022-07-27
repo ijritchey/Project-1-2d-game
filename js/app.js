@@ -1,18 +1,17 @@
 // GLOBAL DOM / VARIABLES
-console.log(ctx);
 const game = document.querySelector('#game');
 const ctx = game.getContext('2d'); // creates a 2d canvas 
-ctx.width = 960;
-ctx.height = 500;
+game.width = 960;
+game.height = 500;
 
 const keys = [];
+const customers = ['David Stomach', 'Sarah Culture', 'Greg Tabasco', 'Lauren Knife', 'Jeff Boyardee']
 
 
 const foodOrder = document.querySelector('#foodOrder');
 const status = document.querySelector('#status');
 const score = document.querySelector('#score');
 
-const customers = ['David Stomach', 'Sarah Culture', 'Greg Tabasco', 'Lauren Knife', 'Jeff Boyardee']
 
 let karen;
 let ingredient1;
@@ -21,16 +20,51 @@ let ingredient3;
 let drink; 
 
 const player = {
-    x: 0,
-    y: 0,
-    width: ,
-    height: ,
+    x: 150,
+    y: 150,
+    width: 31,
+    height: 28,
     frameX: 0,
     frameY: 0, 
     speed: 9,
     moving: false
 };
 
+const playerSprite = new Image();
+playerSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/Chef A1.png";
+const background = new Image();
+background.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/pixil-frame-0 (1).png";
+
+
+function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH){ 
+    ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
+
+}
+
+function animate() {
+    ctx.clearRect(0, 0, game.width, game.height);
+    ctx.drawImage(background, 0, 0, game.width, game.height);
+    
+    drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width*4, player.height*4);  
+   
+    playerMovement();
+    requestAnimationFrame(animate);
+
+}
+
+animate();
+
+function playerMovement(){
+    if(keys['ArrowUp'] && player.y > 5) {
+        player.y -= player.speed;
+        player.frameY = 1;
+    } 
+    if(keys['ArrowDown']) {
+        player.y += player.speed;
+        player.frameY = 1;
+
+}
+}
 
 // ====================== PAINT INTIAL SCREEN ======================= //
 
@@ -39,40 +73,50 @@ const player = {
 
 
 // EVENT LISTENERS
-window.addEventListener('DOMContentLoaded', function() {
-    player = new Crawler(10, 20, 'grey', 20, 20);
-    karen = new Crawler(100, 200, '#bada55', 40, 80);
-    
-    // const runGame = setInterval(gameLoop, 60);
-
+window.addEventListener('keydown', function(e){
+    keys[e.key] = true;
+    console.log(keys);
 });
+
+window.addEventListener('keyup', function(e){
+    delete keys[e.key];
+});
+
+
+// window.addEventListener('DOMContentLoaded', function() {
+//     player = new Crawler(10, 20, 'grey', 20, 20);
+//     karen = new Crawler(100, 200, '#bada55', 40, 80);
+    
+//     // const runGame = setInterval(gameLoop, 60);
+
+// });
 
 
    
 
 // ====================== SETUP FOR CANVAS RENDERING ======================= //
 
-game.setAttribute('height',getComputedStyle(game)['height']);
-game.setAttribute('width',getComputedStyle(game)['width']);
+// game.setAttribute('height',getComputedStyle(game)['height']);
+// game.setAttribute('width',getComputedStyle(game)['width']);
 
 
 // ====================== ENTITIES ======================= //
 
-class Crawler {
-    constructor(x, y, color, width, height){
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.width = width;
-        this.height = height;
-        this.alive = true;
+// class Crawler {
+//     constructor(x, y, color, width, height){
+//         this.x = x;
+//         this.y = y;
+//         this.color = color;
+//         this.width = width;
+//         this.height = height;
+//         this.alive = true;
 
-        this.render = function() {
-            ctx.fillStyle = this.color;
-            ctx.fillRect(this.x, this.y, this.width, this.height);
-        }
-    }
-};
+//         this.render = function() {
+//             ctx.fillStyle = this.color;
+//             ctx.fillRect(this.x, this.y, this.width, this.height);
+//         }
+//     }
+// };
 
 // class Food extends Crawler {
 //     super(x, y, width, height)
@@ -85,17 +129,17 @@ class Crawler {
 //  KEYBOARD INTERACTION LOGIC
 
 // ====================== GAME PROCESSES ======================= //
-function gameLoop() {
+// function gameLoop() {
     
-    // clear canvas 
-    ctx.clearRect(0, 0, game.width, game.height);
-    // check for correct food pickup
+//     // clear canvas 
+//     ctx.clearRect(0, 0, game.width, game.height);
+//     // check for correct food pickup
 
-    // render player and karen
-    player.render();
-    karen.render();
+//     // render player and karen
+//     player.render();
+//     karen.render();
 
-};
+// };
     
 
 
