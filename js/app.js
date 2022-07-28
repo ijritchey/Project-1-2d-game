@@ -17,6 +17,7 @@ let ingredient2;
 let ingredient3;
 let drink; 
 
+
 class Character{
     constructor(x, y, width, height, frameX, frameY, speed, moving){
         this.x = x;
@@ -47,7 +48,7 @@ function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH){
 
 };
 
-
+// player movement keyboard
 
 function playerMovement(){
     if((keys['ArrowUp'] || keys['w']) && player.y > 5) {
@@ -72,6 +73,8 @@ function playerMovement(){
     }
 };
 
+// player movment handle funcion
+
 function handlePlayerFrame(){
     if (player.frameX < 4 && player.moving) {
         player.frameX++;
@@ -80,6 +83,17 @@ function handlePlayerFrame(){
     }
 };
 
+// karen movement random
+
+function karenMovement(){
+
+};
+
+// food movement - limitted to the kitchen
+
+function foodMovement() {
+
+};
 
 // ====================== PAINT INTIAL SCREEN ======================= //
 
