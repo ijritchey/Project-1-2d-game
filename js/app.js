@@ -30,8 +30,8 @@ class Character{
     }
 };
 
-const player = new Character(0, 0, 60.8, 63, 0, 0, 9, false);
-const karen = new Character(450, 200, 60, 60.5, 0, 0, false);
+const player = new Character(150, 150, 60.8, 63, 0, 0, 9, false);
+const karen = new Character(450, 250, 60, 60.5, 0, 0, false);
 
 
 const background = new Image();
@@ -50,22 +50,22 @@ function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH){
 
 
 function playerMovement(){
-    if(keys['ArrowUp'] && player.y > 5) {
+    if((keys['ArrowUp'] || keys['w']) && player.y > 5) {
         player.y -= player.speed;
         player.frameY = 0;
         player.moving = true;
     } ;
-    if(keys['ArrowDown'] && player.y < game.height - player.height) {
+    if((keys['ArrowDown'] || keys['s']) && player.y < game.height - player.height) {
         player.y += player.speed;
         player.frameY = 2;
         player.moving = true;
     };
-    if(keys['ArrowLeft'] && player.x > 0) {
+    if((keys['ArrowLeft'] || keys['a']) && player.x > 0) {
         player.x -= player.speed;
         player.frameY = 1;
         player.moving = true;
     };
-    if(keys['ArrowRight'] && player.x < game.width - player.width) {
+    if((keys['ArrowRight'] || keys['d']) && player.x < game.width - player.width) {
         player.x += player.speed;
         player.frameY = 3;
         player.moving = true;
@@ -78,7 +78,9 @@ function handlePlayerFrame(){
     } else {
         player.frameX = 0;
     }
-}
+};
+
+
 // ====================== PAINT INTIAL SCREEN ======================= //
 
 
@@ -153,8 +155,10 @@ function animate() {
    
     playerMovement();
     handlePlayerFrame();
-    requestAnimationFrame(animate);
+    playerHitDetection();
 
+    requestAnimationFrame(animate);
+    
 }
 
 animate();
@@ -174,6 +178,19 @@ animate();
 
 
 // ====================== COLLISION DETECTION ======================= //
+function playerHitDetection() {
+    let hit = 
+    player.y + player.height > karen.y &&
+    player.y < karen.y + karen.height &&
+    player.x + player.width > karen.x &&
+    player.x < karen.x + karen.width;
+
+    if (hit) {
+        console.log('too far left!')
+        player.x = 0;
+        player.y = 0
+    }
+};
 
 
 // **********************************
