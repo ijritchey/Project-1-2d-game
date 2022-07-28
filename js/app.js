@@ -19,21 +19,25 @@ let ingredient2;
 let ingredient3;
 let drink; 
 
-const player = {
-    x: 150,
-    y: 150,
-    width: 31,
-    height: 28,
-    frameX: 0,
-    frameY: 0, 
-    speed: 9,
-    moving: false
+class Character{
+    constructor(x, y, width, height, frameX, frameY, speed, moving){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.frameX = frameX;
+        this.frameY =frameY;
+        this.speed = speed;
+        this.moving = moving;
+    }
 };
 
-const playerSprite = new Image();
-playerSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/Chef A1.png";
+const player = new Character(0,0, 60.8, 63, 0, 0, 9, false);
+
 const background = new Image();
 background.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/pixil-frame-0 (1).png";
+const playerSprite = new Image();
+playerSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/Download59161 (3).png";
 
 
 function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH){ 
@@ -41,31 +45,35 @@ function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH){
 
 }
 
-function animate() {
-    ctx.clearRect(0, 0, game.width, game.height);
-    ctx.drawImage(background, 0, 0, game.width, game.height);
-    
-    drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width*4, player.height*4);  
-   
-    playerMovement();
-    requestAnimationFrame(animate);
 
-}
-
-animate();
 
 function playerMovement(){
     if(keys['ArrowUp'] && player.y > 5) {
         player.y -= player.speed;
-        player.frameY = 1;
-    } 
-    if(keys['ArrowDown']) {
+        player.frameY = 0;
+    } ;
+    if(keys['ArrowDown'] && player.y < game.height - player.height) {
         player.y += player.speed;
+        player.frameY = 2;
+    };
+    if(keys['ArrowLeft'] && player.x > 0) {
+        player.x -= player.speed;
         player.frameY = 1;
+    };
+    if(keys['ArrowRight'] && player.x < game.width - player.width) {
+        player.x += player.speed;
+        player.frameY = 3;
 
-}
-}
+    }
+};
 
+function handlePlayerFrame(){
+    if (player.frameX < 4 && player.moving) {
+        player.frameX++;
+    } else {
+        player.frameX = 0;
+    }
+}
 // ====================== PAINT INTIAL SCREEN ======================= //
 
 
@@ -75,11 +83,13 @@ function playerMovement(){
 // EVENT LISTENERS
 window.addEventListener('keydown', function(e){
     keys[e.key] = true;
+    player.moving = true;
     console.log(keys);
 });
 
 window.addEventListener('keyup', function(e){
     delete keys[e.key];
+    player.moving = false;
 });
 
 
@@ -129,18 +139,31 @@ window.addEventListener('keyup', function(e){
 //  KEYBOARD INTERACTION LOGIC
 
 // ====================== GAME PROCESSES ======================= //
-// function gameLoop() {
+function animate() {
+    ctx.clearRect(0, 0, game.width, game.height);
+    ctx.drawImage(background, 0, 0, game.width, game.height);
     
-//     // clear canvas 
+    drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width*1.5, player.height*1.5);  
+   
+    playerMovement();
+    handlePlayerFrame();
+    requestAnimationFrame(animate);
+
+}
+
+animate();
+
+// setInterval(function(){
 //     ctx.clearRect(0, 0, game.width, game.height);
-//     // check for correct food pickup
-
-//     // render player and karen
-//     player.render();
-//     karen.render();
-
-// };
+//     ctx.drawImage(background, 0, 0, game.width, game.height);
     
+//     drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width*1.5, player.height*1.5);  
+   
+//     playerMovement();
+//     handlePlayerFrame();
+//     requestAnimationFrame(animate);
+
+// }, 100);
 
 
 // ====================== COLLISION DETECTION ======================= //

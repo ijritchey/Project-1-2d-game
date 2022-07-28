@@ -9,7 +9,7 @@ html,body {
 
 
 canvas {
-    background-color: white;
+    background-color: rgb(37, 37, 37);
     width: 960px;
     height: 500px;
     border: 2px solid black; 
