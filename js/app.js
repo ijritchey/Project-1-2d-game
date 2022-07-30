@@ -4,6 +4,7 @@ const ctx = game.getContext('2d'); // creates a 2d canvas
 game.width = 960;
 game.height = 500;
 
+let score = 0;
 let gameFrame = 0;
 const keys = [];
 const customers = ['David Stomach', 'Sarah Culture', 'Greg Tabasco', 'Lauren Knife', 'Jeff Boyardee'];
@@ -14,7 +15,7 @@ const playerCollection = [];
 
 const foodOrder = document.querySelector('#foodOrder');
 const status = document.querySelector('#status');
-const score = document.querySelector('#score');
+const finalScore = document.querySelector('#score');
 
 let ingredient1;
 let ingredient2;
@@ -36,6 +37,7 @@ class Character{
 
 
 
+
 // class created for food objects
 
 const foodArray = [];
@@ -47,8 +49,30 @@ class Food {
         this.height = 20;
         this. speed = Math.random() * 5 + 1;
         this.distance;
-
+        this.imageSrc = Math.floor(Math.random() * 5);
+        console.log(this.imageSrc);
     };
+
+    imageSrchandle() {
+        switch(this.imageSrc) {
+            case 0:
+                this.imageSrc = 'exmple1';// adding image src for food
+                break;
+            case 1:
+                this.imageSrc = 'exmple2';// adding image src for food
+                break;
+            case 2:
+                this.imageSrc = 'exmple3';// adding image src for food
+                break;
+            case 3:
+                this.imageSrc = 'exmple4';// adding image src for food
+                break;
+            case 4:
+                this.imageSrc = 'exmple5';// adding image src for food
+                break;
+        }
+    };
+
 
     update(){
         this.y += this.speed;
@@ -65,7 +89,7 @@ class Food {
 function handelFood(){
     if (gameFrame % 50 === 0){
         foodArray.push(new Food());
-        console.log(foodArray.length);
+        // console.log(foodArray.length);
     }
     for (let i = 0; i < foodArray.length; i++){
         foodArray[i].update();
@@ -75,9 +99,23 @@ function handelFood(){
     for (let i = 0; i < foodArray.length; i++){
         if (foodArray[i].y < 0){
             foodArray.splice(i, 1);
+        
+        playerHitFood(i);
+        // let hit = 
+        // player.y + player.height > foodArray[i].y &&
+        // player.y < foodArray[i].y + foodArray[i].height &&
+        // player.x + player.width > foodArray[i].x &&
+        // player.x < foodArray[i].x + foodArray[i].width;
+
+        // if (hit) {
+        //     console.log('too far left!');
         }
     }
-};
+}
+
+
+
+
 
 // drawing player and characters to screen
 
@@ -247,7 +285,21 @@ function playerHitDetection() {
     }
 };
 
+function playerHitFood(e) {
+    let hit = 
+    player.y + player.height > foodArray[e].y &&
+    player.y < foodArray[e].y + foodArray[e].height &&
+    player.x + player.width > foodArray[e].x &&
+    player.x < foodArray[e].x + foodArray[e].width;
+
+    if (hit) {
+        console.log('Hit food!')
+
+    }
+}
+// 
+
 
 // **********************************
 // CODE STASH FOR OLD CODE
-// **********************************
+// *********************************
