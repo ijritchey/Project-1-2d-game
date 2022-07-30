@@ -40,6 +40,7 @@ class Character{
 
 // class created for food objects
 
+let foodSrc = [''];
 const foodArray = [];
 class Food {
     constructor(){
@@ -49,30 +50,9 @@ class Food {
         this.height = 20;
         this. speed = Math.random() * 5 + 1;
         this.distance;
-        this.imageSrc = Math.floor(Math.random() * 5);
-        console.log(this.imageSrc);
+        this.imageSrc = foodSrc[Math.floor(Math.random() * 5)];
+        // console.log(this.imageSrc);
     };
-
-    imageSrchandle() {
-        switch(this.imageSrc) {
-            case 0:
-                this.imageSrc = 'exmple1';// adding image src for food
-                break;
-            case 1:
-                this.imageSrc = 'exmple2';// adding image src for food
-                break;
-            case 2:
-                this.imageSrc = 'exmple3';// adding image src for food
-                break;
-            case 3:
-                this.imageSrc = 'exmple4';// adding image src for food
-                break;
-            case 4:
-                this.imageSrc = 'exmple5';// adding image src for food
-                break;
-        }
-    };
-
 
     update(){
         this.y += this.speed;
@@ -100,15 +80,14 @@ function handelFood(){
         if (foodArray[i].y < 0){
             foodArray.splice(i, 1);
         
-        playerHitFood(i);
-        // let hit = 
-        // player.y + player.height > foodArray[i].y &&
-        // player.y < foodArray[i].y + foodArray[i].height &&
-        // player.x + player.width > foodArray[i].x &&
-        // player.x < foodArray[i].x + foodArray[i].width;
+        let hit = 
+        player.y + player.height > foodArray[i].y &&
+        player.y < foodArray[i].y + foodArray[i].height &&
+        player.x + player.width > foodArray[i].x &&
+        player.x < foodArray[i].x + foodArray[i].width;
 
-        // if (hit) {
-        //     console.log('too far left!');
+        if (hit) {
+            console.log('too far left!');
         }
     }
 }
@@ -285,18 +264,20 @@ function playerHitDetection() {
     }
 };
 
-function playerHitFood(e) {
-    let hit = 
-    player.y + player.height > foodArray[e].y &&
-    player.y < foodArray[e].y + foodArray[e].height &&
-    player.x + player.width > foodArray[e].x &&
-    player.x < foodArray[e].x + foodArray[e].width;
+// function playerHitFood(e) {
+//     for (let i = 0; i < foodArray.length; i++){
+//         let hit = 
+//         player.y + player.height > foodArray[e].y &&
+//         player.y < foodArray[e].y + foodArray[e].height &&
+//         player.x + player.width > foodArray[e].x &&
+//         player.x < foodArray[e].x + foodArray[e].width;
 
-    if (hit) {
-        console.log('Hit food!')
+//         if (hit) {
+//             onsole.log('Hit food!')
 
-    }
-}
+//         }
+//     }
+// }
 // 
 
 
