@@ -42,9 +42,9 @@ const foodArray = [];
 class Food {
     constructor(){
         this.x = Math.random() * game.width;
-        this.y = Math.random() * game.height;
-        this.width = 10;
-        this.height = 10;
+        this.y = Math.random() * 1;
+        this.width = 20;
+        this.height = 20;
         this. speed = Math.random() * 5 + 1;
         this.distance;
 
@@ -70,9 +70,14 @@ function handelFood(){
     for (let i = 0; i < foodArray.length; i++){
         foodArray[i].update();
         foodArray[i].draw();
+        
     }
-}
-
+    for (let i = 0; i < foodArray.length; i++){
+        if (foodArray[i].y < 0){
+            foodArray.splice(i, 1);
+        }
+    }
+};
 
 // drawing player and characters to screen
 
