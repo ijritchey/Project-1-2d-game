@@ -4,9 +4,13 @@ const ctx = game.getContext('2d'); // creates a 2d canvas
 game.width = 960;
 game.height = 500;
 
+let gameFrame = 0;
 const keys = [];
-const customers = ['David Stomach', 'Sarah Culture', 'Greg Tabasco', 'Lauren Knife', 'Jeff Boyardee']
+const customers = ['David Stomach', 'Sarah Culture', 'Greg Tabasco', 'Lauren Knife', 'Jeff Boyardee'];
+const foodRecipies = {
 
+};
+const playerCollection = [];
 
 const foodOrder = document.querySelector('#foodOrder');
 const status = document.querySelector('#status');
@@ -15,7 +19,6 @@ const score = document.querySelector('#score');
 let ingredient1;
 let ingredient2;
 let ingredient3;
-let drink; 
 
 
 class Character{
@@ -30,6 +33,49 @@ class Character{
         this.moving = moving;
     }
 };
+
+
+
+// class created for food objects
+
+const foodArray = [];
+class Food {
+    constructor(){
+        this.x = Math.random() * game.width;
+        this.y = Math.random() * game.height;
+        this.width = 10;
+        this.height = 10;
+        this. speed = Math.random() * 5 + 1;
+        this.distance;
+
+    };
+
+    update(){
+        this.y += this.speed;
+    };
+
+    draw(){
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(this.x, this.y, this.width, this.height)
+    };
+};
+
+// food movement handler
+
+function handelFood(){
+    if (gameFrame % 50 === 0){
+        foodArray.push(new Food());
+        console.log(foodArray.length);
+    }
+    for (let i = 0; i < foodArray.length; i++){
+        foodArray[i].update();
+        foodArray[i].draw();
+    }
+}
+
+
+// drawing player and characters to screen
+
 
 const player = new Character(150, 150, 60.8, 63, 0, 0, 9, false);
 const karen = new Character(450, 250, 60, 60.5, 0, 0, false);
@@ -87,6 +133,7 @@ function handlePlayerFrame(){
 
 function karenMovement(){
 
+
 };
 
 // food movement - limitted to the kitchen
@@ -133,25 +180,9 @@ window.addEventListener('keyup', function(e){
 
 // ====================== ENTITIES ======================= //
 
-// class Crawler {
-//     constructor(x, y, color, width, height){
-//         this.x = x;
-//         this.y = y;
-//         this.color = color;
-//         this.width = width;
-//         this.height = height;
-//         this.alive = true;
+// 
 
-//         this.render = function() {
-//             ctx.fillStyle = this.color;
-//             ctx.fillRect(this.x, this.y, this.width, this.height);
-//         }
-//     }
-// };
 
-// class Food extends Crawler {
-//     super(x, y, width, height)
-// }
 
 // ====================== HELPER FUNCTIONS ======================= //
 
@@ -161,16 +192,21 @@ window.addEventListener('keyup', function(e){
 
 // ====================== GAME PROCESSES ======================= //
 function animate() {
+    // clearing screen to begin animation
     ctx.clearRect(0, 0, game.width, game.height);
     ctx.drawImage(background, 0, 0, game.width, game.height);
     
+    // drawing player and karen sprites
     drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width*1.5, player.height*1.5);  
     drawSprite(karenSprite, karen.width * karen.frameX, karen.height * karen.frameY, karen.width, karen.height, karen.x, karen.y, karen.width*1.5, karen.height*1.5);  
-   
+    
+    // calling helper functions
     playerMovement();
     handlePlayerFrame();
     playerHitDetection();
-
+    gameFrame++;
+    handelFood()
+    // console.log(gameFrame);
     requestAnimationFrame(animate);
     
 }
