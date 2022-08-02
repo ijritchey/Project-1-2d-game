@@ -41,14 +41,14 @@ class Character{
 // class created for food objects
 
 let foodSrc = [''];
-const foodArray = [];
+const foodArray = []; // for each loop
 class Food {
     constructor(){
         this.x = Math.random() * game.width;
         this.y = Math.random() * 1;
         this.width = 20;
         this.height = 20;
-        this. speed = Math.random() * 5 + 1;
+        this.speed = Math.random() * 5 + 1;
         this.distance;
         this.imageSrc = foodSrc[Math.floor(Math.random() * 5)];
         // console.log(this.imageSrc);
@@ -66,7 +66,7 @@ class Food {
 
 // food movement handler
 
-function handelFood(){
+function handleFood(){
     if (gameFrame % 50 === 0){
         foodArray.push(new Food());
         // console.log(foodArray.length);
@@ -74,12 +74,7 @@ function handelFood(){
     for (let i = 0; i < foodArray.length; i++){
         foodArray[i].update();
         foodArray[i].draw();
-        
-    }
-    for (let i = 0; i < foodArray.length; i++){
-        if (foodArray[i].y < 0){
-            foodArray.splice(i, 1);
-        
+
         let hit = 
         player.y + player.height > foodArray[i].y &&
         player.y < foodArray[i].y + foodArray[i].height &&
@@ -87,14 +82,41 @@ function handelFood(){
         player.x < foodArray[i].x + foodArray[i].width;
 
         if (hit) {
-            console.log('too far left!');
+            console.log('contact!');
         }
+
+    }
+    for (let i = 0; i < foodArray.length; i++){
+        if (foodArray[i].y < 0){
+            foodArray.splice(i, 1);
+        
     }
 }
-}
+};
 
+// food collision 
 
+// attempt #1
+// foodArray.forEach(foodLoop);
 
+// function foodLoop(){ 
+//     if (foodArray.x === player.x && foodArray.y === player.y){
+//         console.log('we have contact!')
+//     }
+// };
+
+// attempt #2
+// function foodLoops() {
+//     foodArray.forEach(food => {
+//         for (let key in food) {
+//             console.log(key.x);
+//             // if (key.x === player.x && key.y === player.y){
+//             //     console.log('Contact')
+//             // } 
+        
+//         }
+//     })
+// }
 
 // drawing player and characters to screen
 
@@ -158,12 +180,6 @@ function karenMovement(){
 
 };
 
-// food movement - limitted to the kitchen
-
-function foodMovement() {
-
-};
-
 // ====================== PAINT INTIAL SCREEN ======================= //
 
 
@@ -183,16 +199,6 @@ window.addEventListener('keyup', function(e){
 });
 
 
-// window.addEventListener('DOMContentLoaded', function() {
-//     player = new Crawler(10, 20, 'grey', 20, 20);
-//     karen = new Crawler(100, 200, '#bada55', 40, 80);
-    
-//     // const runGame = setInterval(gameLoop, 60);
-
-// });
-
-
-   
 
 // ====================== SETUP FOR CANVAS RENDERING ======================= //
 
@@ -227,9 +233,10 @@ function animate() {
     handlePlayerFrame();
     playerHitDetection();
     gameFrame++;
-    handelFood()
+    handleFood();    
     // console.log(gameFrame);
     requestAnimationFrame(animate);
+
     
 }
 
