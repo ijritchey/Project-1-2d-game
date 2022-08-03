@@ -48,9 +48,12 @@ class Food {
         this.y = Math.random() * 1;
         this.width = 20;
         this.height = 20;
-        this.speed = Math.random() * 5 + 1;
+        this.speed = Math.random() * 6 + 1;
         this.distance;
-        this.imageSrc = foodSrc[Math.floor(Math.random() * 5)];
+        this.imageSrc = foodSrc[Math.floor(Math.random() * 5)]; // needs to be completed 
+        this.counted = false;
+        this.sound = Math.random() <= .5 ? 'sound1' : 'sound2';
+        console.log(this.sound);
         // console.log(this.imageSrc);
     };
 
@@ -63,6 +66,11 @@ class Food {
         ctx.fillRect(this.x, this.y, this.width, this.height)
     };
 };
+
+const foodPop1 = document.createElement('audio')
+foodPop1.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/audio/crunch.5.ogg'
+const foodPop2 = document.createElement('audio')
+foodPop2.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/audio/crunch.2.ogg'
 
 // food movement handler
 
@@ -79,10 +87,23 @@ function handleFood(){
         player.y + player.height > foodArray[i].y &&
         player.y < foodArray[i].y + foodArray[i].height &&
         player.x + player.width > foodArray[i].x &&
-        player.x < foodArray[i].x + foodArray[i].width;
+        player.x < foodArray[i].x + foodArray[i].width; // hit detection algorithm 
+
 
         if (hit) {
             console.log('contact!');
+            if (!foodArray[i].counted) {
+                score++; 
+                foodArray[i].counted = true;
+                foodArray.splice(i, 1);
+                if (foodArray[i] === 'sound1') {
+                    foodPop1.play();
+                } else {
+                    foodPop2.play();
+                }
+                
+            }
+           
         }
 
     }
@@ -94,35 +115,13 @@ function handleFood(){
 }
 };
 
-// food collision 
 
-// attempt #1
-// foodArray.forEach(foodLoop);
-
-// function foodLoop(){ 
-//     if (foodArray.x === player.x && foodArray.y === player.y){
-//         console.log('we have contact!')
-//     }
-// };
-
-// attempt #2
-// function foodLoops() {
-//     foodArray.forEach(food => {
-//         for (let key in food) {
-//             console.log(key.x);
-//             // if (key.x === player.x && key.y === player.y){
-//             //     console.log('Contact')
-//             // } 
-        
-//         }
-//     })
-// }
 
 // drawing player and characters to screen
 
 
 const player = new Character(150, 150, 60.8, 63, 0, 0, 9, false);
-const karen = new Character(450, 250, 60, 60.5, 0, 0, false);
+const karen = new Character(900, 10, 60, 60.5, 0, 0, false);
 
 
 const background = new Image();
@@ -131,6 +130,7 @@ const playerSprite = new Image();
 playerSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/mainCharacter.png";
 const karenSprite = new Image();
 karenSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/karenCharacter.png"
+
 
 
 function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH){ 
@@ -175,9 +175,13 @@ function handlePlayerFrame(){
 
 // karen movement random
 
-function karenMovement(){
 
-
+function enemyMovement(){
+    // if (gameFrame % 50 === 0){
+    //     // karen.x = Math.random() * game.width;
+    //     // karen.y = Math.random() * game.height;
+    //     this.speed = Math.random() * 5 + 1;
+    // }
 };
 
 // ====================== PAINT INTIAL SCREEN ======================= //
@@ -229,10 +233,11 @@ function animate() {
     drawSprite(karenSprite, karen.width * karen.frameX, karen.height * karen.frameY, karen.width, karen.height, karen.x, karen.y, karen.width*1.5, karen.height*1.5);  
     
     // calling helper functions
+    gameFrame++;
     playerMovement();
     handlePlayerFrame();
     playerHitDetection();
-    gameFrame++;
+    enemyMovement()
     handleFood();    
     // console.log(gameFrame);
     requestAnimationFrame(animate);
