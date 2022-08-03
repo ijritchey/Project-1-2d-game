@@ -28,10 +28,41 @@ class Character{
         this.frameY =frameY;
         this.speed = speed;
         this.moving = moving;
+        
     }
+
+    UpdateAngle() {
+        const dx = this.x - player.x;
+        const dy = this.y - player.y;
+        if (player.x != this.x){
+            this.x -= dx;
+        }
+        if (player.y != this.y) {
+            this.x -= dy;
+        }
+        // this.distance = Math.sqrt((this.dx*this.dx) + (this.dy*this.dy));
+        // this.angle = Math.atan2(this.dy,this.dx) * 180 / Math.PI;
+        // if (this.angle < 0) {
+        //     this.angle += 360;
+        // }
+      }
+    UpdateSpeed() {
+        const speedX = this.speed * (this.dx/this.distance);
+        const speedY = this.speed * (this.dy/this.distance);
+      }
+    Move() {
+        this.UpdateAngle();
+        this.UpdateSpeed();
+        this.x += this.speedX;
+        this.y += this.speedY;
+      }
 };
 
-
+// function karenFunction(){
+//     karen.UpdateAngle();
+//     karen.UpdateSpeed();
+//     karen.Move();
+// };
 
 
 // food class
@@ -51,7 +82,7 @@ class Food {
         this.height = 35;
         this.speed = Math.random() * 6 + 1;
         // this.distance; //not being used
-        this.imageSrc = foodSrc[Math.floor(Math.random() * 3)]; // needs to be completed 
+        this.imageSrc = foodSrc[Math.floor(Math.random() * 4)]; // needs to be completed 
         // console.log(this.imageSrc);
         this.counted = false;
         this.sound = Math.random() <= .5 ? 'sound1' : 'sound2';
@@ -142,8 +173,7 @@ const playerSprite = new Image();
 playerSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/mainCharacter.png";
 const karenSprite = new Image();
 karenSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/karenCharacter.png";
-const food1 = new Image();
-food1.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/food1.png';
+
 
 
 function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH){ 
@@ -252,6 +282,7 @@ function animate() {
     playerHitDetection();
     enemyMovement()
     handleFood();    
+    // karenFunction()
     // console.log(gameFrame);
     requestAnimationFrame(animate);
 
@@ -260,18 +291,6 @@ function animate() {
 
 animate();
 
-
-// setInterval(function(){
-//     ctx.clearRect(0, 0, game.width, game.height);
-//     ctx.drawImage(background, 0, 0, game.width, game.height);
-    
-//     drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width*1.5, player.height*1.5);  
-   
-//     playerMovement();
-//     handlePlayerFrame();
-//     requestAnimationFrame(animate);
-
-// }, 100);
 
 
 // ====================== COLLISION DETECTION ======================= //
@@ -292,21 +311,6 @@ function playerHitDetection() {
     }
 };
 
-// function playerHitFood(e) {
-//     for (let i = 0; i < foodArray.length; i++){
-//         let hit = 
-//         player.y + player.height > foodArray[e].y &&
-//         player.y < foodArray[e].y + foodArray[e].height &&
-//         player.x + player.width > foodArray[e].x &&
-//         player.x < foodArray[e].x + foodArray[e].width;
-
-//         if (hit) {
-//             onsole.log('Hit food!')
-
-//         }
-//     }
-// }
-// 
 
 
 // **********************************
