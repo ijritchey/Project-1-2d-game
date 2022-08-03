@@ -2,7 +2,7 @@ html,body {
     overflow: hidden;
     margin: 0;
     padding: 0;
-    background-image:  url('/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/Food.png');
+    background-image:  url('/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/backgroundFood.png');
     background-repeat: repeat;
     background-color: black;
 }

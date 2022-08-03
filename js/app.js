@@ -8,19 +8,15 @@ let score = 0;
 let gameFrame = 0;
 const keys = [];
 const customers = ['David Stomach', 'Sarah Culture', 'Greg Tabasco', 'Lauren Knife', 'Jeff Boyardee'];
-const foodRecipies = {
 
-};
-const playerCollection = [];
+// const playerCollection = [];
 
 const foodOrder = document.querySelector('#foodOrder');
 const status = document.querySelector('#status');
 const finalScore = document.querySelector('#score');
 
-let ingredient1;
-let ingredient2;
-let ingredient3;
 
+// character class
 
 class Character{
     constructor(x, y, width, height, frameX, frameY, speed, moving){
@@ -38,22 +34,27 @@ class Character{
 
 
 
-// class created for food objects
+// food class
 
-let foodSrc = [''];
+const foodSrc = [
+    '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/food1.png',
+    '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/food2.png',
+    '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/food3.png',
+    '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/food4.png'
+];
 const foodArray = []; // for each loop
 class Food {
     constructor(){
         this.x = Math.random() * game.width;
         this.y = Math.random() * 1;
-        this.width = 20;
-        this.height = 20;
+        this.width = 35;
+        this.height = 35;
         this.speed = Math.random() * 6 + 1;
-        this.distance;
-        this.imageSrc = foodSrc[Math.floor(Math.random() * 5)]; // needs to be completed 
+        // this.distance; //not being used
+        this.imageSrc = foodSrc[Math.floor(Math.random() * 3)]; // needs to be completed 
+        // console.log(this.imageSrc);
         this.counted = false;
         this.sound = Math.random() <= .5 ? 'sound1' : 'sound2';
-        console.log(this.sound);
         // console.log(this.imageSrc);
     };
 
@@ -62,15 +63,22 @@ class Food {
     };
 
     draw(){
-        ctx.fillStyle = 'blue';
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+        // ctx.fillStyle = 'blue';
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        let img = new Image()
+        img.src = this.imageSrc
+        ctx.drawImage(img, this.x, this.y, this.width, this.height);
     };
 };
 
-const foodPop1 = document.createElement('audio')
-foodPop1.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/audio/crunch.5.ogg'
-const foodPop2 = document.createElement('audio')
-foodPop2.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/audio/crunch.2.ogg'
+
+// game sounds
+const foodPop1 = document.createElement('audio');
+foodPop1.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/audio/crunch.5.ogg';
+const foodPop2 = document.createElement('audio');
+foodPop2.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/audio/crunch.2.ogg';
+const karenSlap = document.createElement('audio');
+karenSlap.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/audio/karenSlap.ogg'
 
 // food movement handler
 
@@ -93,20 +101,23 @@ function handleFood(){
         if (hit) {
             console.log('contact!');
             if (!foodArray[i].counted) {
-                score++; 
-                foodArray[i].counted = true;
-                foodArray.splice(i, 1);
-                if (foodArray[i] === 'sound1') {
+                
+                if (foodArray[i].sound === 'sound1') {  // sound1 sound2 if statment
                     foodPop1.play();
                 } else {
                     foodPop2.play();
                 }
-                
+
+                score++; // add to score
+                foodArray[i].counted = true; // only count food once
+                foodArray.splice(i, 1); // remove food once hit detected
+                finalScore.textContent = score; // update score on page
             }
            
         }
 
     }
+
     for (let i = 0; i < foodArray.length; i++){
         if (foodArray[i].y < 0){
             foodArray.splice(i, 1);
@@ -114,6 +125,7 @@ function handleFood(){
     }
 }
 };
+
 
 
 
@@ -129,8 +141,9 @@ background.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1
 const playerSprite = new Image();
 playerSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/mainCharacter.png";
 const karenSprite = new Image();
-karenSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/karenCharacter.png"
-
+karenSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/karenCharacter.png";
+const food1 = new Image();
+food1.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/food1.png';
 
 
 function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH){ 
@@ -194,7 +207,7 @@ function enemyMovement(){
 window.addEventListener('keydown', function(e){
     keys[e.key] = true;
     player.moving = true;
-    console.log(keys);
+    // console.log(keys);
 });
 
 window.addEventListener('keyup', function(e){
@@ -270,9 +283,12 @@ function playerHitDetection() {
     player.x < karen.x + karen.width;
 
     if (hit) {
-        console.log('too far left!')
+        console.log('Karen called your manager!')
         player.x = 0;
         player.y = 0
+        score = score - 1;
+        finalScore.textContent = score;
+        karenSlap.play();
     }
 };
 
