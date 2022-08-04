@@ -13,6 +13,8 @@ canvas {
     width: 960px;
     height: 500px;
     border: 2px solid black; 
+    visibility: hidden;
+
 }
 
 h1, h2 {
@@ -47,12 +49,16 @@ h1, h2 {
 }
 
 #top-right {
+    text-align: center;
     grid-area: top-right;
-    justify-content:left;
+    justify-content: center;
     padding-left: 5px;
 }
 
 main {
+    background-image:  url('/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/depositphotos_78467298-stock-illustration-business-people-having-lunch-together.jpeg');
+    background-size: cover;
+    visibility: visible;
     grid-area: game;
 }
 
@@ -65,4 +71,8 @@ main {
 #btm-right {
     grid-area: btm-right;
     
+}
+
+#foodOrder {
+    color: black;
 }

@@ -4,6 +4,7 @@ const ctx = game.getContext('2d'); // creates a 2d canvas
 game.width = 960;
 game.height = 500;
 
+const runGame = false;
 let score = 0;
 let gameFrame = 0;
 const keys = [];
@@ -14,7 +15,8 @@ const customers = ['David Stomach', 'Sarah Culture', 'Greg Tabasco', 'Lauren Kni
 const foodOrder = document.querySelector('#foodOrder');
 const karenComment = document.querySelector('#status');
 const finalScore = document.querySelector('#score');
-
+const canvasMain = document.querySelector('main');
+console.log(canvasMain);
 
 // character class
 
@@ -142,10 +144,15 @@ const player = new Character(150, 150, 60.8, 63, 0, 0, 9, false);
 const karen = new Character(900, 10, 60, 60.5, 0, 2, 9, false);
 
 
+const startingPage = new Image();
+startingPage.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/startingPage.png'
+
 const background = new Image();
 background.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/pixil-frame-0 (1).png";
+
 const playerSprite = new Image();
 playerSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/mainCharacter.png";
+
 const karenSprite = new Image();
 karenSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/imgs/karenCharacter.png";
 
@@ -211,12 +218,15 @@ window.addEventListener('keyup', function(e){
     player.moving = false;
 });
 
-
+// display starting image and start game on click
+window.addEventListener('click', function(){
+    game.style.visibility = 'visible';
+    canvasMain.style.visibility = 'hidden';
+    animate();
+    }
+)
 
 // ====================== SETUP FOR CANVAS RENDERING ======================= //
-
-// game.setAttribute('height',getComputedStyle(game)['height']);
-// game.setAttribute('width',getComputedStyle(game)['width']);
 
 
 // ====================== ENTITIES ======================= //
@@ -229,7 +239,15 @@ window.addEventListener('keyup', function(e){
 
 // GUI
 
-//  KEYBOARD INTERACTION LOGIC
+//  Starting game page - click start to continue
+
+
+    
+
+
+
+
+
 
 // ====================== GAME PROCESSES ======================= //
 function animate() {
@@ -241,23 +259,26 @@ function animate() {
     drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width*1.5, player.height*1.5);  
     drawSprite(karenSprite, karen.width * karen.frameX, karen.height * karen.frameY, karen.width, karen.height, karen.x, karen.y, karen.width*1.5, karen.height*1.5);  
     
-    // calling helper functions
+    // continual game frame counter
     gameFrame++;
+
+    // calling helper functions
     playerMovement();
     handlePlayerFrame();
     playerHitDetection();
-    enemyMovement()
 
-    // handleFood();    // food movement disabled for sanity sake
+    handleFood();    // food movement disabled for sanity sake
 
-    // karen.UpdateAngle(); // Karen movement disabled for sanity sake
+    karen.UpdateAngle(); // Karen movement disabled for sanity sake
 
     requestAnimationFrame(animate);
 
     
 }
 
-animate();
+
+
+
 
 
 
@@ -273,7 +294,7 @@ function playerHitDetection() {
         console.log('Karen called your manager!')
         player.x = 0;
         player.y = 0
-        score = score - 1;
+        score = score - 2;
         finalScore.textContent = score;
         karenSlap.play();
         karenComment.textContent = "I'm calling your manager!!";
