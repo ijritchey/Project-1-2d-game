@@ -12,7 +12,7 @@ const customers = ['David Stomach', 'Sarah Culture', 'Greg Tabasco', 'Lauren Kni
 // const playerCollection = [];
 
 const foodOrder = document.querySelector('#foodOrder');
-const status = document.querySelector('#status');
+const karenComment = document.querySelector('#status');
 const finalScore = document.querySelector('#score');
 
 
@@ -35,34 +35,14 @@ class Character{
         const dx = this.x - player.x;
         const dy = this.y - player.y;
         if (player.x != this.x){
-            this.x -= dx;
+            this.x -= dx/100;
         }
         if (player.y != this.y) {
-            this.x -= dy;
+            this.y -= dy/100;
         }
-        // this.distance = Math.sqrt((this.dx*this.dx) + (this.dy*this.dy));
-        // this.angle = Math.atan2(this.dy,this.dx) * 180 / Math.PI;
-        // if (this.angle < 0) {
-        //     this.angle += 360;
-        // }
-      }
-    UpdateSpeed() {
-        const speedX = this.speed * (this.dx/this.distance);
-        const speedY = this.speed * (this.dy/this.distance);
-      }
-    Move() {
-        this.UpdateAngle();
-        this.UpdateSpeed();
-        this.x += this.speedX;
-        this.y += this.speedY;
-      }
-};
+    }
+}
 
-// function karenFunction(){
-//     karen.UpdateAngle();
-//     karen.UpdateSpeed();
-//     karen.Move();
-// };
 
 
 // food class
@@ -81,12 +61,9 @@ class Food {
         this.width = 35;
         this.height = 35;
         this.speed = Math.random() * 6 + 1;
-        // this.distance; //not being used
         this.imageSrc = foodSrc[Math.floor(Math.random() * 4)]; // needs to be completed 
-        // console.log(this.imageSrc);
         this.counted = false;
         this.sound = Math.random() <= .5 ? 'sound1' : 'sound2';
-        // console.log(this.imageSrc);
     };
 
     update(){
@@ -94,8 +71,6 @@ class Food {
     };
 
     draw(){
-        // ctx.fillStyle = 'blue';
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
         let img = new Image()
         img.src = this.imageSrc
         ctx.drawImage(img, this.x, this.y, this.width, this.height);
@@ -164,7 +139,7 @@ function handleFood(){
 
 
 const player = new Character(150, 150, 60.8, 63, 0, 0, 9, false);
-const karen = new Character(900, 10, 60, 60.5, 0, 0, false);
+const karen = new Character(900, 10, 60, 60.5, 0, 2, 9, false);
 
 
 const background = new Image();
@@ -216,16 +191,7 @@ function handlePlayerFrame(){
     }
 };
 
-// karen movement random
 
-
-function enemyMovement(){
-    // if (gameFrame % 50 === 0){
-    //     // karen.x = Math.random() * game.width;
-    //     // karen.y = Math.random() * game.height;
-    //     this.speed = Math.random() * 5 + 1;
-    // }
-};
 
 // ====================== PAINT INTIAL SCREEN ======================= //
 
@@ -281,9 +247,11 @@ function animate() {
     handlePlayerFrame();
     playerHitDetection();
     enemyMovement()
-    handleFood();    
-    // karenFunction()
-    // console.log(gameFrame);
+
+    // handleFood();    // food movement disabled for sanity sake
+
+    // karen.UpdateAngle(); // Karen movement disabled for sanity sake
+
     requestAnimationFrame(animate);
 
     
@@ -308,6 +276,13 @@ function playerHitDetection() {
         score = score - 1;
         finalScore.textContent = score;
         karenSlap.play();
+        karenComment.textContent = "I'm calling your manager!!";
+        karenComment.style.color = 'black';
+    }
+
+    if (gameFrame % 200 === 0) {
+        karenComment.textContent = "Enjoy the Game! Watch out for Karen!";
+        karenComment.style.color = 'yellow';
     }
 };
 
