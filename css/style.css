@@ -2,7 +2,7 @@ html,body {
     overflow: hidden;
     margin: 0;
     padding: 0;
-    background-image:  url('/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/Project-1-2d-game/imgs/backgroundFood.png');
+    background-image:  url('../imgs/backgroundFood.png');
     background-repeat: repeat;
     background-color: black;
 }
@@ -56,7 +56,7 @@ h1, h2 {
 }
 
 main {
-    background-image:  url('/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/Project-1-2d-game/imgs/depositphotos_78467298-stock-illustration-business-people-having-lunch-together.jpeg');
+    background-image:  url('../imgs/depositphotos_78467298-stock-illustration-business-people-having-lunch-together.jpeg');
     background-size: cover;
     visibility: visible;
     grid-area: game;

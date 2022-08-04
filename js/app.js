@@ -48,10 +48,10 @@ class Character{
 // food class
 
 const foodSrc = [
-    '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/Project-1-2d-game/imgs/food1.png',
-    '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/Project-1-2d-game/imgs/food2.png',
-    '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/Project-1-2d-game/imgs/food3.png',
-    '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/Project-1-2d-game/imgs/food4.png'
+    './imgs/food1.png',
+    './imgs/food2.png',
+    './imgs/food3.png',
+    './imgs/food4.png'
 ];
 const foodArray = []; // for each loop
 class Food {
@@ -80,11 +80,11 @@ class Food {
 
 // game sounds
 const foodPop1 = document.createElement('audio');
-foodPop1.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/Project-1-2d-game/audio/crunch.5.ogg';
+foodPop1.src = './audio/crunch.5.ogg';
 const foodPop2 = document.createElement('audio');
-foodPop2.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/Project-1-2d-game/audio/crunch.2.ogg';
+foodPop2.src = './audio/crunch.2.ogg';
 const karenSlap = document.createElement('audio');
-karenSlap.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/Project-1-2d-game/audio/karenSlap.ogg'
+karenSlap.src = './audio/karenSlap.ogg'
 
 // food movement handler
 
@@ -143,16 +143,16 @@ const karen = new Character(900, 10, 60, 60.5, 0, 2, 9, false);
 
 
 const startingPage = new Image();
-startingPage.src = '/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/Project-1-2d-game/imgs/startingPage.png'
+startingPage.src = './imgs/startingPage.png'
 
 const background = new Image();
-background.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/Project-1-2d-game/imgs/pixil-frame-0 (1).png";
+background.src = "./imgs/pixil-frame-0 (1).png";
 
 const playerSprite = new Image();
-playerSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/Project-1-2d-game/imgs/mainCharacter.png";
+playerSprite.src = "./imgs/mainCharacter.png";
 
 const karenSprite = new Image();
-karenSprite.src = "/Users/ianritchey/Desktop/SEI-621/unit-1/deliverable/project-1-2d-game/Project-1-2d-game/imgs/karenCharacter.png";
+karenSprite.src = "./imgs/karenCharacter.png";
 
 
 
