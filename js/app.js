@@ -4,10 +4,17 @@ const ctx = game.getContext('2d'); // creates a 2d canvas
 game.width = 960;
 game.height = 500;
 
-const runGame = false;
-let score = 0;
-let gameFrame = 0;
-const keys = [];
+const runGame = false; // not sure if this is going to be used
+let score = 0; // player score
+let gameFrame = 0; // tracking anmiated frames ~60 per second
+const keys = []; // keyboard keys array
+let timer = 5; // 60 seconds
+
+
+
+// timer countdown 
+
+// setInterval(function(){timer--; console.log(timer);}, 1000)
 
 // const playerCollection = [];
 
@@ -15,6 +22,9 @@ const foodOrder = document.querySelector('#foodOrder');
 const karenComment = document.querySelector('#status');
 const finalScore = document.querySelector('#score');
 const canvasMain = document.querySelector('main');
+const timerDisplay = document.querySelector('#top-left');
+const winnerText = document.querySelector('#winner');
+const body = document.getElementById('container');
 
 // character class
 
@@ -91,8 +101,9 @@ karenSlap.src = './audio/karenSlap.ogg'
 function handleFood(){
     if (gameFrame % 50 === 0){
         foodArray.push(new Food());
-        // console.log(foodArray.length);
+
     }
+
     for (let i = 0; i < foodArray.length; i++){
         foodArray[i].update();
         foodArray[i].draw();
@@ -131,6 +142,7 @@ function handleFood(){
     }
 }
 };
+
 
 
 
@@ -200,8 +212,8 @@ function handlePlayerFrame(){
 
 // ====================== PAINT INTIAL SCREEN ======================= //
 
-
-
+    
+// }
 
 
 // EVENT LISTENERS
@@ -220,11 +232,19 @@ window.addEventListener('keyup', function(e){
 window.addEventListener('click', function(){
     game.style.visibility = 'visible';
     canvasMain.style.visibility = 'hidden';
+    setInterval(function(){
+        if (timer >= 0){
+        timerDisplay.textContent = `Seconds left: ${timer--}`; 
+        timerDisplay.style.fontSize = 'x-large';
+        console.log(timer);
+        }  
+    }, 1000);
     animate();
     }
 )
 
 // ====================== SETUP FOR CANVAS RENDERING ======================= //
+
 
 
 // ====================== ENTITIES ======================= //
@@ -249,6 +269,23 @@ window.addEventListener('click', function(){
 
 // ====================== GAME PROCESSES ======================= //
 function animate() {
+    if (timer <= -1) {
+        cancelAnimationFrame(animate);
+        if(score > 0){
+            console.log('Winner winner');
+            // game.style.visibility = 'hidden';
+            game.remove();
+            karenComment.textContent = `You've won with ${score} points! Woohooo!!`;
+            foodOrder.textContent = 'Winner Winner, Chicken Dinner!';
+            foodOrder.style.color = 'yellow';
+            body.style.backgroundColor = 'black';
+            // winnerText.style.display = 'block';
+        } else {
+            game.textContent = `You've lost with ${score} points! Whomp Whomp!`
+        }
+        return;
+        
+    }
     // clearing screen to begin animation
     ctx.clearRect(0, 0, game.width, game.height);
     ctx.drawImage(background, 0, 0, game.width, game.height);
@@ -261,6 +298,7 @@ function animate() {
     gameFrame++;
 
     // calling helper functions
+
     playerMovement();
     handlePlayerFrame();
     playerHitDetection();
@@ -272,7 +310,8 @@ function animate() {
     requestAnimationFrame(animate);
 
     
-}
+    
+};
 
 
 
@@ -306,6 +345,16 @@ function playerHitDetection() {
 };
 
 
+// win condition function
+
+// function winCondition() {
+//     if (timer <= 0) {
+//         cancelAnimationFrame(animate);
+//         return;
+
+//     }
+// };
+// winCondition();
 
 // **********************************
 // CODE STASH FOR OLD CODE
