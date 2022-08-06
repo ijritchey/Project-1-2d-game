@@ -204,13 +204,6 @@ function handlePlayerFrame(){
 };
 
 
-
-// ====================== PAINT INTIAL SCREEN ======================= //
-
-    
-// }
-
-
 // EVENT LISTENERS
 window.addEventListener('keydown', function(e){
     keys[e.key] = true;
