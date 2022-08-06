@@ -11,7 +11,7 @@ const keys = []; // keyboard keys array
 let timer = 45; // 45 seconds
 
 
-// const playerCollection = [];
+// html selected elements 
 
 const foodOrder = document.querySelector('#foodOrder');
 const karenComment = document.querySelector('#status');

@@ -72,7 +72,7 @@ Not a problem, but an improvment would be to make the the game board (display) l
 
 I initially started this project with a much more advanced game in mind - due to my lack of starting knowledge (and time constraints) I needed to pull back and simplify the game a bit. The notes below show my thinking on day one. 
 
-[Mock-Drawing](../2D%20game%20mock%20up.drawio%20(1).png)
+![Mock-Drawing](../2D%20game%20mock%20up.drawio%20(1).png)
 
 Cooking recipe fulfillment game - serve food to the customers at different tables. 
 Recipes will consist of specifically combined ingredients
