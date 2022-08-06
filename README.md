@@ -1,5 +1,10 @@
 # Project-1-2d-game
-Potential Name: "Not Another Cooking Game Show" 
+Potential Name: "Karen's Revenge" 
+
+A classic arcade game where your goal is to collect as many falling fruits as possible while avoiding the enemy (Karen). 
+
+To play Karen's Revenge
+
 Working Notes:
 Cooking recipe fulfillment game - serve food to the customers at different tables. 
 Recipes will consist of specifically combined ingredients

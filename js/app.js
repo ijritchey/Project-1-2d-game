@@ -8,13 +8,8 @@ let runGame = false; // not sure if this is going to be used
 let score = 0; // player score
 let gameFrame = 0; // tracking anmiated frames ~60 per second
 const keys = []; // keyboard keys array
-let timer = 5; // 60 seconds
+let timer = 45; // 45 seconds
 
-
-
-// timer countdown 
-
-// setInterval(function(){timer--; console.log(timer);}, 1000)
 
 // const playerCollection = [];
 
@@ -146,7 +141,7 @@ function handleFood(){
 
 
 
-// drawing player and characters to screen
+// drawing player, karen, starting screen and  to screen
 
 
 const player = new Character(150, 150, 60.8, 63, 0, 0, 9, false);
@@ -166,6 +161,7 @@ const karenSprite = new Image();
 karenSprite.src = "./imgs/karenCharacter.png";
 
 
+// draw sprit functionality
 
 function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH){ 
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
@@ -197,7 +193,7 @@ function playerMovement(){
     }
 };
 
-// player movment handle funcion
+// player walking animation frame handler
 
 function handlePlayerFrame(){
     if (player.frameX < 4 && player.moving) {
@@ -325,16 +321,7 @@ function playerHitDetection() {
 };
 
 
-// win condition function
 
-// function winCondition() {
-//     if (timer <= 0) {
-//         cancelAnimationFrame(animate);
-//         return;
-
-//     }
-// };
-// winCondition();
 
 // **********************************
 // CODE STASH FOR OLD CODE
