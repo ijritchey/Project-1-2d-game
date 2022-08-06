@@ -238,6 +238,7 @@ window.addEventListener('click', function(){
 
 // ====================== GAME PROCESSES ======================= //
 function animate() {
+    // if statement to check for timer and win/lose condition 
     if (timer <= -1) {
         cancelAnimationFrame(animate);
         if(score > 0){
