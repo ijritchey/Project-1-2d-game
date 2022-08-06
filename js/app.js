@@ -4,7 +4,7 @@ const ctx = game.getContext('2d'); // creates a 2d canvas
 game.width = 960;
 game.height = 500;
 
-const runGame = false; // not sure if this is going to be used
+let runGame = false; // not sure if this is going to be used
 let score = 0; // player score
 let gameFrame = 0; // tracking anmiated frames ~60 per second
 const keys = []; // keyboard keys array
@@ -23,7 +23,6 @@ const karenComment = document.querySelector('#status');
 const finalScore = document.querySelector('#score');
 const canvasMain = document.querySelector('main');
 const timerDisplay = document.querySelector('#top-left');
-const winnerText = document.querySelector('#winner');
 const body = document.getElementById('container');
 
 // character class
@@ -220,7 +219,7 @@ function handlePlayerFrame(){
 window.addEventListener('keydown', function(e){
     keys[e.key] = true;
     player.moving = true;
-    // console.log(keys);
+    console.log(keys);
 });
 
 window.addEventListener('keyup', function(e){
@@ -228,42 +227,23 @@ window.addEventListener('keyup', function(e){
     player.moving = false;
 });
 
-// display starting image and start game on click
+// display starting image and start game on click - only allow for one click
 window.addEventListener('click', function(){
-    game.style.visibility = 'visible';
-    canvasMain.style.visibility = 'hidden';
-    setInterval(function(){
-        if (timer >= 0){
-        timerDisplay.textContent = `Seconds left: ${timer--}`; 
-        timerDisplay.style.fontSize = 'x-large';
-        console.log(timer);
-        }  
-    }, 1000);
-    animate();
-    }
-)
-
-// ====================== SETUP FOR CANVAS RENDERING ======================= //
-
-
-
-// ====================== ENTITIES ======================= //
-
-// 
-
-
-
-// ====================== HELPER FUNCTIONS ======================= //
-
-// GUI
-
-//  Starting game page - click start to continue
-
-
-    
-
-
-
+    if (!runGame) {
+        game.style.visibility = 'visible';
+        canvasMain.style.visibility = 'hidden';
+        setInterval(function(){
+            if (timer >= 0){
+            timerDisplay.textContent = `Seconds left: ${timer--}`; 
+            timerDisplay.style.fontSize = 'x-large';
+            console.log(timer);
+            }  
+        }, 1000);
+        animate();
+        runGame = true;
+        }
+}
+);
 
 
 
@@ -273,15 +253,18 @@ function animate() {
         cancelAnimationFrame(animate);
         if(score > 0){
             console.log('Winner winner');
-            // game.style.visibility = 'hidden';
             game.remove();
             karenComment.textContent = `You've won with ${score} points! Woohooo!!`;
-            foodOrder.textContent = 'Winner Winner, Chicken Dinner!';
+            foodOrder.textContent = 'Winner Winner, Chicken Dinner! Refresh the page to play again!';
             foodOrder.style.color = 'yellow';
             body.style.backgroundColor = 'black';
-            // winnerText.style.display = 'block';
+
         } else {
-            game.textContent = `You've lost with ${score} points! Whomp Whomp!`
+            game.remove();
+            karenComment.textContent = `You've lost! You had ${score} points! Whomp Whomp!!`;
+            foodOrder.textContent = "You have to watch out for Karen! Refresh the page to play again!";
+            foodOrder.style.color = 'yellow';
+            body.style.backgroundColor = 'black';
         }
         return;
         
@@ -312,9 +295,6 @@ function animate() {
     
     
 };
-
-
-
 
 
 
