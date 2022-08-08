@@ -148,8 +148,8 @@ const player = new Character(150, 150, 60.8, 63, 0, 0, 9, false);
 const karen = new Character(900, 10, 60, 60.5, 0, 2, 9, false);
 
 
-const startingPage = new Image();
-startingPage.src = './imgs/startingPage.png'
+// const startingPage = new Image();
+// startingPage.src = './imgs/startingPage.png'
 
 const background = new Image();
 background.src = "./imgs/pixil-frame-0 (1).png";
@@ -205,6 +205,10 @@ function handlePlayerFrame(){
 
 
 // EVENT LISTENERS
+window.addEventListener('reset', function(){
+    location.reload;
+});
+
 window.addEventListener('keydown', function(e){
     keys[e.key] = true;
     player.moving = true;

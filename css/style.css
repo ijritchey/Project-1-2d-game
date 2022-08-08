@@ -2,7 +2,7 @@ html,body {
     overflow: hidden;
     margin: 0;
     padding: 0;
-    background-image:  url('../imgs/backgroundFood.png');
+    /* background-image:  url('../imgs/backgroundFood.png'); */
     background-repeat: repeat;
     background-color: black;
 }
@@ -80,6 +80,8 @@ main {
     color: black;
 }
 
-/* #winner {
-    display: none;
-} */
+button {
+    display: block;
+    left: 50px;
+    top: 50px;
+}
